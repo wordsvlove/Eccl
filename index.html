@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在日常中與主同行：活出生命之道 - 10月靈修</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f7f5f0;
+            color: #333;
+        }
+        
+        h1, h2, h3, .serif-font {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <aside class="w-full md:w-80 bg-stone-900 text-stone-100 h-1/3 md:h-full flex flex-col shadow-xl z-10 transition-all duration-300">
+        <div class="p-6 bg-stone-950">
+            <h1 class="text-xl font-bold tracking-wider text-amber-500 mb-2">在日常中與主同行</h1>
+            <p class="text-sm text-stone-400">傳道書與被造之人的智慧</p>
+            <p class="text-xs text-stone-500 mt-1">2026年 10月靈修</p>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-4 space-y-2" id="day-list">
+            <!-- List items will be injected by JS -->
+        </div>
+    </aside>
+
+    <main class="flex-1 h-2/3 md:h-full overflow-y-auto relative bg-[#fdfcf9]">
+        <div class="max-w-3xl mx-auto p-6 md:p-12 pb-24">
+            
+            <header class="flex justify-between items-start mb-8 border-b border-stone-200 pb-6">
+                <div>
+                    <span id="display-date" class="text-sm font-semibold text-amber-700 tracking-widest uppercase mb-1 block"></span>
+                    <h2 id="display-title" class="text-3xl md:text-4xl font-bold text-stone-800 serif-font leading-tight"></h2>
+                </div>
+                <button id="listen-btn" class="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-800 px-4 py-2 rounded-full transition-colors text-sm font-medium shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="listen-text">聆聽內容</span>
+                </button>
+            </header>
+
+            <div id="content-area" class="fade-in space-y-8">
+                <!-- Verse -->
+                <div class="bg-stone-100 p-6 rounded-2xl border-l-4 border-amber-500 relative">
+                    <svg class="absolute top-4 right-4 h-8 w-8 text-stone-300 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <p id="display-verse" class="text-xl text-stone-700 font-medium leading-relaxed serif-font"></p>
+                    <p id="display-ref" class="text-right text-stone-500 text-sm mt-2 font-semibold"></p>
+                </div>
+
+                <!-- Theology & Insight -->
+                <section>
+                    <h3 class="text-lg font-bold text-stone-800 mb-3 flex items-center gap-2">
+                        <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">1</span> 
+                        聖言反思
+                    </h3>
+                    <p id="display-theology" class="text-stone-700 leading-loose text-justify"></p>
+                </section>
+
+                <!-- Heart & Life -->
+                <section>
+                    <h3 class="text-lg font-bold text-stone-800 mb-3 flex items-center gap-2">
+                        <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">2</span> 
+                        心靈觀照
+                    </h3>
+                    <p id="display-heart" class="text-stone-700 leading-loose text-justify"></p>
+                </section>
+
+                <!-- Practical Action -->
+                <section class="bg-amber-50/50 p-6 rounded-2xl border border-amber-100">
+                    <h3 class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">3</span> 
+                        生活實踐
+                    </h3>
+                    <p id="display-action" class="text-stone-700 leading-loose"></p>
+                    <div class="mt-4 p-4 bg-white rounded-xl shadow-sm">
+                        <p class="font-semibold text-stone-800 text-sm mb-1">今日反思問題：</p>
+                        <p id="display-question" class="text-stone-600 italic"></p>
+                    </div>
+                </section>
+
+                <!-- Prayer -->
+                <section>
+                    <h3 class="text-lg font-bold text-stone-800 mb-3 flex items-center gap-2">
+                        <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">4</span> 
+                        結束禱告
+                    </h3>
+                    <p id="display-prayer" class="text-stone-700 leading-loose italic"></p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const devotionalData = {
+            1: {
+                title: "日光之下的嘆息與虛空",
+                verse: "傳道者說：虛空的虛空，虛空的虛空，凡事都是虛空。人一切的勞碌，就是他在日光之下的勞碌，有什麼益處呢？",
+                ref: "傳道書 1:2-3 (和合本)",
+                theology: "「日光之下」是傳道書的關鍵詞，代表將神排除在外，單憑人理智衡量的人生活動。講章中提到，傳道書本質上是探討「創造」的書卷。當我們忘記神是創造主，企圖靠自己的勞碌去建立永恆意義時，一切終將成為「虛空」（Hevel，如霧氣般無法抓緊）。神允許我們看見日光之下的徒勞，是為了引導我們轉向日光之上的主。",
+                heart: "我們常耗盡全力追求社會定義的成功：升職、買房，但達成時卻常有「然後呢？」的失落。這不是你做錯了什麼，而是神把我們的心造得太大，大到只有創造主自己能填滿。你的疲憊與失落，正是靈魂渴望歸向神的呼喚。",
+                action: "今天完成一項工作後，安靜停留兩分鐘，承認這份成就的短暫性，並在心裡將它獻給日光之上的主。",
+                question: "最近有什麼成就是你原本以為會帶來巨大快樂，最後卻覺得「不過如此」的？",
+                prayer: "主啊，我承認我在日光之下的追逐常讓我感到疲憊。求祢開我的眼，讓我看見日光之上的祢，將我的心錨拋在永恆之中。阿們。"
+            },
+            2: {
+                title: "受造的界線與大自然的規律",
+                verse: "一代過去，一代又來，地卻永遠長存。日頭出來，日頭落下，急歸所出之地。",
+                ref: "傳道書 1:4-5 (和合本)",
+                theology: "傳道者藉由觀察大自然（日出日落、風向水流）的循環，指出宇宙有其不可撼動的秩序。講章提醒我們，這是神創造時設定的「功能與界線」。人類的狂傲在於想當自己的神，試圖突破或掌控這些界線，結果往往是徒勞與痛苦。",
+                heart: "遇到挫折時，我們常覺得世界末日到了，因為我們潛意識把自己當成了宇宙的中心。但大自然的運轉提醒我們：管理世界的是神，不是我們。這不是悲觀，而是極大的釋放——你不必撐起整個世界，你可以安分地作一個受造物。",
+                action: "花五分鐘在戶外感受風的吹拂或觀察陽光，提醒自己：「神是創造主，我只是受造物，祂在掌管一切。」",
+                question: "有什麼事情是你覺得「非我不可」，以至於讓自己壓力過大、跨越了受造物的界線？",
+                prayer: "創造萬有的主，在大自然的規律前我承認自己的微小。謝謝祢掌管萬有，讓我可以放下想掌控一切的焦慮。阿們。"
+            },
+            3: {
+                title: "無法滿足的眼與耳",
+                verse: "萬事令人厭煩，人不能說盡。眼看，看不飽；耳聽，聽不足。",
+                ref: "傳道書 1:8 (和合本)",
+                theology: "講章提到，神將對永恆的渴望安置在人心中，這意味著被造界的短暫事物，永遠無法真正填滿我們。人類的感官慾望像無底洞，這是日光之下最大的悲哀，卻也是引導我們尋找日光之上之主的最佳路標。",
+                heart: "現代人每天滑手機、追劇、網購，試圖用資訊和物質填滿內心，卻越看越空虛。輔導學告訴我們，強迫性的行為背後常有未被滿足的情感。承認這種「看不飽、聽不足」的匱乏，不靠外在刺激來麻醉自己，是靈命成長的第一步。",
+                action: "今天嘗試進行兩小時的「數位排毒」，關閉社群媒體，在安靜中面對自己的內心。",
+                question: "你通常用什麼方式來填補內心的空虛感？這真的帶來深層的滿足了嗎？",
+                prayer: "滿足一切的主，求祢赦免我常向世界乞討那短暫的滿足。願祢的愛充滿我，成為我靈魂深處唯一的飽足。阿們。"
+            },
+            4: {
+                title: "日光之下並無新事",
+                verse: "已有的事後必再有；已行的事後必再行。日光之下並無新事。",
+                ref: "傳道書 1:9 (和合本)",
+                theology: "歷史是不斷重複的循環。人類自以為的創新與進步，在神永恆的視角中不過是重演。傳道書不是在否定人的努力，而是要打破人對「烏托邦」的幻想。在罪的影響下，如果不回到創造主面前，任何新事物都無法帶來終極的救贖。",
+                heart: "我們常以為換個工作、換個伴侶或搬到新城市，人生的煩惱就會消失。但「無新事」提醒我們，問題的根源往往在我們裡面，而不是外在環境。接受現實的不完美，才能停止盲目地向外逃避。",
+                action: "列出一個你最近想逃避的困境。求神給你勇氣面對它，而不是尋找下一個「新」的寄託。",
+                question: "你是否對未來抱持著不切實際的幻想，以為某件事發生後人生就完美了？",
+                prayer: "主啊，教導我不去追逐虛幻的改變，而是在祢裡面尋求生命本質的更新，因為唯有在祢裡面，我才是新造的人。阿們。"
+            },
+            5: {
+                title: "理智的極限與愁煩",
+                verse: "因為多有智慧，就多有愁煩；加增知識的，就加增憂傷。",
+                ref: "傳道書 1:18 (和合本)",
+                theology: "即便是人類最高尚的追求——智慧與知識，在日光之下依然有限。講章指出，所羅門用盡理智去探索人生的意義，結果只帶來憂傷。知道得越多，越看見世界的破碎。理性的探索無法帶來拯救，唯有信心能。",
+                heart: "我們處於資訊焦慮的世代，每天吸收大量新聞，試圖用知識武裝自己、預防危機。但真正的平安不是建立在「全知」上，而是建立在對那位全知之神的「信任」上。放下理智的傲慢，承認我們的有限。",
+                action: "今天刻意不去搜尋或過度關注那些會引起你焦慮、但你又無法改變的新聞事件。",
+                question: "過多的資訊與分析，是幫助了你，還是讓你更失去對神的單純信靠？",
+                prayer: "全知的主，我承認我的理智無法參透萬事，過度的思慮只帶來愁煩。求祢賜我單純信靠祢的心，在祢懷中得安息。阿們。"
+            },
+            6: {
+                title: "享樂也是虛空",
+                verse: "我心裡說，來吧，我以喜樂試試你，你好享福！誰知，這也是虛空。",
+                ref: "傳道書 2:1 (和合本)",
+                theology: "傳道者曾嘗試用盡一切資源去享樂，測試人生的意義，結論依然是虛空。神並不反對喜樂，但當「享樂」成為人生的最高目標或救主時，它就變成了一個殘酷的偶像，永遠索求，永不滿足。",
+                heart: "辛苦工作一週後，我們常以大吃一頓或衝動購物來「犒賞」自己。這本無可厚非，但如果我們的人生只剩下期待週末的享樂來支撐，內心會極度乾涸。真正的喜樂不是感官的刺激，而是靈魂在神裡面的安頓。",
+                action: "今天不要用外在的消費來獲取喜樂。嘗試安靜讀經、散步或與家人真誠對話，體驗樸實的快樂。",
+                question: "你是否把某種娛樂或物質享受當作了逃避生活壓力的麻醉劑？",
+                prayer: "主，謝謝祢賜下各樣美好的事物。求祢保守我的心不被享樂綑綁，讓我最深的喜樂是單單來自於祢。阿們。"
+            },
+            7: {
+                title: "成就的省思：放下掌控",
+                verse: "後來，我察看我手所經營的一切事和我勞碌所成的功。誰知都是虛空，都是捕風；在日光之下毫無益處。",
+                ref: "傳道書 2:11 (和合本)",
+                theology: "傳道者擁有極高的成就，但他發現這一切如同「捕風」。講章提到，當我們把自我價值建立在成就上，我們就是在試圖掌控人生，甚至想「自己作神」。神要我們看見成就的暫時性，好讓我們將價值建立在祂的愛中。",
+                heart: "你的名片頭銜、存款數字不能定義你是誰。當你因為工作表現不好而覺得自己一無是處時，是因為你把工作當成了上帝。把自我價值從成就中抽離，你會發現自己之所以尊貴，只因為你是神重價買贖的孩子。",
+                action: "今天下班時，在心裡做一個宣告：「我的價值不等於我今天的工作表現。我是神所愛的受造物。」",
+                question: "如果明天你失去了現在的工作或地位，你覺得自己還有價值嗎？",
+                prayer: "主啊，教導我盡心工作，但不被成就轄制。讓我的心不因成敗而起伏，只因祢是我的創造主而堅立。阿們。"
+            },
+            8: {
+                title: "面對共同的結局：死亡",
+                verse: "因為愚昧人和智慧人一樣，永遠無人記念，因為日後都被忘記；可歎智慧人死亡，與愚昧人無異。",
+                ref: "傳道書 2:16 (和合本)",
+                theology: "無論是智者或愚妄人，最終都必須面對死亡。在日光之下，這看似最絕望的結論，但講章指出，這是神用來打破人類驕傲的手段。面對死亡這條無法跨越的界線，我們才懂得謙卑，懂得尋求日光之上的永恆救贖。",
+                heart: "我們社會極度忌諱談論死亡，用保養品、健身、忙碌來掩飾對衰老的恐懼。但正視生命的有限，反而能讓我們更珍惜當下。明白人生短暫，我們就不會把時間浪費在無謂的爭吵與計較上。",
+                action: "思考如果生命只剩下一週，你會對誰說什麼？今天就試著傳達出那份關心或道歉。",
+                question: "面對死亡的必然，你最想留下什麼給愛你的人？這如何影響你今天的選擇？",
+                prayer: "生命的主，求祢指教我怎樣數算自己的日子，好叫我得著智慧的心，活出有永恆意義的每一天。阿們。"
+            },
+            9: {
+                title: "將勞碌的結果交託",
+                verse: "我恨惡一切的勞碌，就是我在日光之下的勞碌，因為我得來的必留給後來的人。",
+                ref: "傳道書 2:18 (和合本)",
+                theology: "我們窮盡一生累積的財富和事業，死後只能留給別人，而那人是智是愚我們無從掌控。神透過這一點再次提醒我們，我們只是世上資源的「管家」，不是絕對的擁有者，更無法掌控未來。",
+                heart: "控制狂的悲哀在於無法接受事情不在自己的掌握中。我們擔心下一代，擔心財產，擔心公司。但神要我們學習放手。你只能盡力做好今天的部分，未來的結果、甚至你死後的事，都在創造主的手中。",
+                action: "將一件你一直憂心忡忡、試圖掌控未來的計畫，在禱告中具體地交還給神，宣告祢不再掌控它。",
+                question: "你是否緊緊抓住某些東西不放，深怕失去控制？這帶給你什麼樣的情緒？",
+                prayer: "掌管萬有的主，我承認我無法帶走任何東西，也無法掌控未來。求祢幫助我學習放手，做一個忠心卻不執著的好管家。阿們。"
+            },
+            10: {
+                title: "生命是禮物 (Gift)，不是薪水",
+                verse: "人莫強如吃喝，且在勞碌中享福，我看這也是出於神的手。",
+                ref: "傳道書 2:24 (和合本)",
+                theology: "講章特別強調，能在工作中找到意義、享受吃喝，這是「出於神的手」，是一份「禮物 (Gift)」。我們常以為工作是為了賺取薪水，我們也常帶著交易心態來到神面前（我努力，神就要賜福）。但傳道者說，日常的享受是神白白的恩典，你無法靠勞力去「強求」。",
+                heart: "當我們把一切視為自己賺來的「薪水」時，失去就會帶來極大的憤怒。但當我們明白一切都是神賞賜的「禮物」時，我們的心就能充滿感恩。好好吃一頓飯、專心陪家人散步，這代表你相信神在掌權，你可以安心作個領受恩典的受造物。",
+                action: "今天吃午餐或晚餐時，放下手機，專注品嚐食物，在心裡明確對神說：「這餐飯是祢賜給我的禮物，謝謝祢。」",
+                question: "你有多久沒有單純地享受神所賜的日常，而不覺得是在「浪費時間」或有罪惡感？",
+                prayer: "天父，謝謝祢賜下各樣美好的日常。求祢赦免我常帶著交易的心態生活，教導我每天都能謙卑地看見並享受祢白白的賞賜。阿們。"
+            },
+            11: {
+                title: "順應創造的節奏：萬事都有定期",
+                verse: "凡事都有定期，天下萬務都有定時。生有時，死有時；栽種有時，拔出所栽種的也有時。",
+                ref: "傳道書 3:1-2 (和合本)",
+                theology: "神設定了時間的規律與節奏。生命不是一直處於高光時刻，而是有生有死、有哭有笑的季節流轉。承認並順應創造主所定的時間表，而不是強求在冬日看見春花，是智慧的開端，也是對神主權的降服。",
+                heart: "現代人常常缺乏耐心，想要立即見效的醫治、立刻改變的關係、馬上成功的事業。但生命是需要季節的。如果現在是流淚的季節，就允許自己悲傷；如果是等候的季節，就耐心蟄伏。不要抗拒神為你安排的當下季節。",
+                action: "辨識你目前生命正處於哪一個「季節」（如：等候、休養、爭戰、播種）。寫下一句鼓勵自己的話。",
+                question: "你是否正在強求一個還未到來的結果，而忽略了神在現階段要你學習的功課？",
+                prayer: "主，祢是掌管時間的神。求祢賜我智慧去分辨祢的節奏，賜我耐心去等候祢的定時，在每個季節中都看見祢的美意。阿們。"
+            },
+            12: {
+                title: "永恆的呼喚",
+                verse: "神造萬物，各按其時成為美好，又將永生安置在世人心裡。然而神從始至終的作為，人不能參透。",
+                ref: "傳道書 3:11 (和合本)",
+                theology: "講章提到這是傳道書極重要的一節。神把「永生（對永恆的渴望）」放在人裡面。這解釋了為什麼短暫的物質永遠無法滿足我們。我們的空虛，其實是受造的靈魂對創造主深深的鄉愁。但神作為的奧祕，我們無法完全參透。",
+                heart: "當你感到莫名的落寞或焦慮，不是因為你不夠努力，而是因為你本就不屬於這個世界。我們常試圖用工作、成就或癮頭來填補這份空缺。接納這份「神聖的空虛」，不再尋求替代品，讓它成為驅使你親近神的動力。",
+                action: "在獨處時，安靜感受內心那份無法被滿足的渴求，在禱告中直接將這份渴求指向神。",
+                question: "你意識到自己內心有對「永恆」的渴望嗎？你過去都用什麼東西試圖填補它？",
+                prayer: "親愛的主，我的心原是為祢而造。若沒有祢，我就永遠得不到安息。求祢親自填補我心中那專屬於祢的空缺。阿們。"
+            },
+            13: {
+                title: "在敬畏中享受日常",
+                verse: "我知道世人，莫強如終身喜樂行善；並且人人吃喝，在他一切勞碌中享福，這也是神的恩賜。",
+                ref: "傳道書 3:12-13 (和合本)",
+                theology: "傳道者再次重申：在勞碌中享福是「神的恩賜 (Gift)」。當我們明白萬事都有定期，且神的作為人不能參透時，我們最好的回應不是絕望，而是在敬畏中，安分地行善，並享受神今天賜下的生活。這正是活在創造界線中的智慧。",
+                heart: "我們常以為屬靈就是要追求偉大的異象，而忽略了日常。其實，好好對待身邊的人（行善）、好好吃喝感恩，這就是極高深的屬靈操練。這代表你放下了想作神的企圖，甘心作一個領受天父照顧的孩子。",
+                action: "今天為生活中一件看似微不足道、平常理所當然的事情向神獻上感謝，並在今天刻意向一位身邊的人行一個小善。",
+                question: "你是否覺得日常的吃喝與行善太過平凡，總想追求更「轟轟烈烈」的信仰經歷？",
+                prayer: "天父，謝謝祢在平凡的日子裡賜下恩典。教導我不再好高騖遠，而是在每一天的喜樂與行善中，切實地跟隨祢。阿們。"
+            },
+            14: {
+                title: "面對世上的不公",
+                verse: "我又見日光之下，在審判之處有奸惡，在公義之處也有奸惡。我心裡說，神必審判義人和惡人...",
+                ref: "傳道書 3:16-17 (和合本)",
+                theology: "傳道者毫不避諱地指出現實世界的黑暗：制度腐敗、公義不彰。在日光之下，這會讓人陷入虛無。但傳道者確信，神最終必審判。我們在世上雖看見不公，卻不必絕望，因為終極的公義與時間都掌管在神手中。",
+                heart: "當我們遭受到不公平的對待（如職場霸凌、被誤解）時，心中的憤怒會吞噬我們。我們極度渴望自己去討回公道。神明白我們的委屈，祂要我們把伸冤的主權交給祂，這能保護我們的心免於被仇恨與苦毒毒害。",
+                action: "為一個曾經對你不公的人或體制禱告，求神親自作王掌權，並宣告你願意釋放自己心中的苦毒。",
+                question: "面對生活中的不公義，你的反應是憤世嫉俗、想自己報復，還是將主權交託給神？",
+                prayer: "公義的主，當我看見這世界的敗壞時，求祢保守我的心不至失去盼望。我相信祢是最終的審判者，我願將一切委屈交託給祢。阿們。"
+            },
+            15: {
+                title: "競爭與比較的虛妄",
+                verse: "我又察看一切勞碌和各樣靈巧的工作，就被鄰舍嫉妒。這也是虛空，也是捕風。",
+                ref: "傳道書 4:4 (和合本)",
+                theology: "許多人努力工作的動力，其實源自於「嫉妒」與「比較」。我們想比別人好，想被看重。這種建立在比較之上的勞碌，神看為虛空。神對我們的愛是無條件的，我們不需要透過踩在別人頭上來證明自己的價值。",
+                heart: "社群媒體加劇了我們的比較心態。我們總在看別人去了哪裡旅遊、小孩考了什麼學校。比較的背後是深深的不安全感。當我們明白自己是神珍愛的受造物，不再需要藉由超越別人來證明自己時，才能獲得真正的平靜。",
+                action: "今天刻意停止一次與他人的比較（例如滑社群媒體時）。當心裡泛起嫉妒時，立刻感謝神在你身上獨特的計畫。",
+                question: "你目前的努力與忙碌，有多少成分是為了贏過別人，或是害怕輸給別人？",
+                prayer: "主啊，赦免我常常活在與人比較的勞碌中。求祢用祢完全的愛建立我的自我價值，讓我能真誠地為別人的成功喜樂。阿們。"
+            },
+            16: {
+                title: "寧靜的滿足",
+                verse: "滿了一把，得享安靜，強如滿了兩把，勞碌捕風。",
+                ref: "傳道書 4:6 (和合本)",
+                theology: "智慧人懂得中庸之道。為了貪婪而追求「滿了兩把」，結果只會失去內心的平靜，淪為捕風。神勸勉我們，適度的擁有一把，並在其中享受神所賜的安息，是更具智慧、更符合創造心意的生活方式。",
+                heart: "我們常落入「越多越好」的陷阱，為了賺更多的錢，犧牲了健康、家庭和靈修時間。其實你真正需要的，遠比你想要的少。學習「知足」，是現代人對抗無止盡消費主義與績效主義最強大的武器。",
+                action: "檢視你本週的行事曆。是否為了「滿了兩把」而過度排滿？試著取消一個非必要的行程，給自己留白的安靜時間。",
+                question: "為了追求更多的金錢或成就，你現在正在犧牲什麼？這真的值得嗎？",
+                prayer: "主，求祢賜我知足的心。讓我在「滿了一把」的恩典中得享安靜，不再為那不必要的兩把而盲目勞碌。阿們。"
+            },
+            17: {
+                title: "關係的價值",
+                verse: "兩個人總比一個人好，因為二人勞碌同得美好的果效。若是跌倒，這人可以扶起他的同伴...",
+                ref: "傳道書 4:9-10 (和合本)",
+                theology: "人不是被造來孤獨生活的。在虛空與充滿勞碌的日光之下，神賜給我們人際關係作為保護與安慰。孤立自己不僅是愚昧，更是危險的。「三股合成的繩子不容易折斷」，指出了在神引導下真實群體力量的寶貴。",
+                heart: "現代社會讓人越來越孤立。我們害怕受傷，於是選擇退縮，甚至覺得「一個人比較輕鬆，不用顧慮別人」。但在軟弱跌倒時，我們極需有真實的同伴來扶持。向肢體敞開自己，建立真實的關係，是屬靈生命成長不可或缺的一環。",
+                action: "今天主動傳訊息或打電話給一位久未聯絡的屬靈同伴或朋友，單純關心他的近況。",
+                question: "在你跌倒或陷入低潮時，你有可以毫無防備地傾訴的同伴嗎？",
+                prayer: "慈愛的主，謝謝祢將我放在群體中。求祢賜我勇氣敞開自己，建立真實互助的肢體關係，在愛中彼此扶持。阿們。"
+            },
+            18: {
+                title: "敬畏的聆聽",
+                verse: "你到神的殿要腳步慎重；因為近前聽，勝過愚昧人獻祭，他們本不知道所做的是惡。",
+                ref: "傳道書 5:1 (和合本)",
+                theology: "講章提到，來到神面前，最重要的態度不是滔滔不絕地訴說我們的需求（把神當提款機），而是「慎重」與「聆聽」。承認神在天上，我們在地下。敬畏神，就是清楚看見「祂是創造主，我是受造物」的界線。",
+                heart: "我們的禱告常常像在跟神下訂單，急著要神解決問題。這種急躁反映了我們想掌控局面的驕傲，把神當作達成我們目標的工具。安靜下來，聆聽神的話語，哪怕只是在沉默中降服於祂的同在，能深層醫治我們的焦慮。",
+                action: "今天的禱告時間，嘗試先保持三分鐘的完全安靜，什麼都不求，只是帶著敬畏的心安靜在神面前。",
+                question: "你在神面前是說得多，還是聽得多？你的禱告是否常帶著「指導上帝做事」的意味？",
+                prayer: "主啊，祢在天上，我在地下。求祢勒住我的舌頭，讓我帶著敬畏的心來到祢面前，學習專注聆聽祢的微小聲音。阿們。"
+            },
+            19: {
+                title: "貪財的虛無",
+                verse: "貪愛銀子的，不因得銀子知足；貪愛豐富的，也不因得利益知足。這也是虛空。",
+                ref: "傳道書 5:10 (和合本)",
+                theology: "財富本身不是罪，但「貪愛」財富會成為生命的網羅。金錢是一個很好的僕人，卻是一個極可怕的主人。傳道者直指人心的貪婪：受造界的金錢永遠無法滿足靈魂對永恆的飢渴，這是一個屬靈的物理定律。",
+                heart: "我們常以為「只要薪水再高一點，我就會有安全感」。但事實是，隨著收入增加，我們的慾望和恐懼也隨之增加。安全感如果建立在會貶值、會失去的物質上，那我們的內心將永遠處於不安的地震帶上。",
+                action: "今天檢視自己近期的一筆花費。問自己：我買這個是為了真實的需要，還是為了填補內心的某種不安與虛榮？",
+                question: "你對金錢的態度，反映出你把安全感建立在神身上，還是財富身上？",
+                prayer: "供應萬有的主，求祢打破金錢在我心中的偶像地位。讓我明白真正的富足是在祢裡面，賜我慷慨與知足的心。阿們。"
+            },
+            20: {
+                title: "安眠的恩典",
+                verse: "勞碌的人不拘吃多吃少，睡得香甜；富足人的豐滿卻不容他睡覺。",
+                ref: "傳道書 5:12 (和合本)",
+                theology: "睡眠是創造主賜給受造人的奇妙恩典。勞碌者因為安分守己而能安眠；但那些想緊緊抓住財富與權力的人，反而因日夜憂慮而失眠。神透過睡眠提醒我們：我們不是神，地球沒有我們依然會轉，我們需要休息。",
+                heart: "失眠常常伴隨著過度的思慮與對明天的擔憂。當我們躺在床上還在盤算時，其實是拒絕交出生活的控制權。放鬆入睡，是一種深度的屬靈信任，宣告「就算我睡著了，神依然在掌管」。",
+                action: "今晚睡前，寫下三件讓你擔憂的事，然後在禱告中具體交給神，宣告這不再是你的責任，然後安心睡覺。",
+                question: "你近期的睡眠品質如何？你的失眠是否反映了你潛意識裡想掌控一切的焦慮？",
+                prayer: "看顧我的主，祢必不打盹，也不睡覺。我願將一切重擔卸給祢，求祢賜我安詳的睡眠，在祢的愛中得享安息。阿們。"
+            },
+            21: {
+                title: "赤身而來，赤身而去",
+                verse: "他怎樣從母胎赤身而來，也必照樣赤身而去；他所勞碌得來的，手中分毫不能帶去。",
+                ref: "傳道書 5:15 (和合本)",
+                theology: "這是一個鐵一般的事實：我們在世上的一切擁有，都只是暫時的「租借」。神讓我們赤身而來，赤身而去，為要我們明白，生命的本質不在於「擁有什麼（積攢法碼）」，而在於我們作為受造物，如何敬畏神、經歷愛。",
+                heart: "當我們面臨失去（失去金錢、機會、甚至健康）時，會感到無比痛心。但如果我們意識到這些本來就不屬於我們，只是神暫時交託的，我們就能用「感恩曾經擁有」取代「失去的憤怒與痛苦」。",
+                action: "整理房間，丟掉或捐出三樣你不再需要、卻一直捨不得丟的物品，練習對物質的「不執著」。",
+                question: "有什麼東西是你緊抓不放，甚至影響了你與神、與人的關係的？",
+                prayer: "主啊，我承認我空手而來，也將空手而回。求祢教導我不用世上的擁有來定義自己，而是珍惜祢所賜的每一個當下。阿們。"
+            },
+            22: {
+                title: "享受神所賜的界線",
+                verse: "我所見為善為美的，就是人在神賜他一生的日子吃喝，享受日光之下勞碌得來的好處，因為這是他的分。",
+                ref: "傳道書 5:18 (和合本)",
+                theology: "講章提到，傳道者極力推崇在日常中享受「神所賜的一份」。當我們明白神掌管一切時，我們就不會再把吃喝或工作當作拯救自己的終極手段。我們得以從極端的野心中被釋放，安分地享受神所賜下的這一份「界線與賞賜」。",
+                heart: "我們這個世代充滿了「錯失恐懼症」(FOMO)，總覺得別人過得更好，總想突破所有的界線。神給我們每個人有特定的「分」。擁抱你的限制，承認你的平凡，在你現有的工作、家庭和一餐一飲中，你就能奇妙地發現生活的甘甜。",
+                action: "今天在吃午餐或晚餐時，在心裡感謝神賜下這份簡單的供應，不去羨慕別人擁有的。",
+                question: "你是否總是看著別人擁有的，卻忽略了神今天已經賜給你的「那一份」？",
+                prayer: "主啊，謝謝祢賜給我今天所需用的飲食與工作。求祢賜我平靜的心，不去貪求不屬於我的，而是深深感恩並享受祢量給我的地界。阿們。"
+            },
+            23: {
+                title: "亨通與患難的交織",
+                verse: "遇亨通的日子你當喜樂；遭患難的日子你當思想；因為神使這兩樣並列，為叫人查不出身後有什麼事。",
+                ref: "傳道書 7:14 (和合本)",
+                theology: "神並不保證信徒的人生永遠順遂。亨通與患難交替，是神刻意的安排，為要打破我們的「法碼論」（以為好行為一定帶來好結果），讓我們對未來保持敬畏，不自以為能掌控明天，單單倚靠祂的恩典。",
+                heart: "我們討厭未知，遇到困難總覺得「我這麼愛主，這不該發生在我身上」。但患難是靈魂的擴音器。與其在患難中問「為什麼是我？」不如問「神啊，祢要我思想什麼？」學會在失控中尋找神的同在，是成熟生命的記號。",
+                action: "回顧過去生命中的一個低谷。寫下一件那個低谷帶給你的成長，或幫助你看見自身盲點的祝福。",
+                question: "面對現在的不如意，你是在抱怨神不公平，還是願意停下來「思想」神的心意？",
+                prayer: "掌管際遇的神，無論是亨通還是患難，都在祢的手中。求祢賜我平靜接受的心，在順境中讚美，在逆境中緊緊跟隨。阿們。"
+            },
+            24: {
+                title: "過度公義的危險",
+                verse: "不要行義過分，也不要過於自逞智慧，何必自取敗亡呢？",
+                ref: "傳道書 7:16 (和合本)",
+                theology: "這句話看似矛盾，其實是針對法利賽人式的「自以為義」。當我們以為靠著極度的敬虔、嚴格守規矩就能「強迫」神賜福時，這是一種傲慢（法碼論的變形）。神要我們看見自己的殘破，不再靠行為稱義，而是單單倚靠恩典。",
+                heart: "有些基督徒活得很緊繃，對自己和別人都定下極高的道德標準，一旦做不到就嚴厲定罪。這種「完美主義」不僅扼殺了喜樂，也破壞了關係。承認自己是個會犯錯的受造物，需要神的憐憫，才能讓我們對自己和他人溫柔。",
+                action: "今天當你對別人的錯誤感到不耐煩，或對自己的失誤感到自責時，對自己說：「我是個蒙恩的罪人，對方也是。」",
+                question: "你在信仰生活中，是否也帶著讓人窒息的「完美主義」，用行為來衡量愛？",
+                prayer: "恩典的主，赦免我常以自以為義的標準去審判自己和他人。求祢用祢的寬容覆蓋我的軟弱，讓我活在真理與恩典的平衡中。阿們。"
+            },
+            25: {
+                title: "接納軟弱，擁抱恩典",
+                verse: "時常行善而不犯罪的義人，世上實在沒有。",
+                ref: "傳道書 7:20 (和合本)",
+                theology: "這是傳道者對人性的深刻洞察，我們必須徹底絕望於「靠自己成聖」的企圖。這正是福音的前提：唯有承認我們在日光之下全然敗壞，我們才能全然擁抱創造主在十字架上為我們成就的救恩（Gift）。",
+                heart: "當我們看見教會領袖跌倒，或發現自己一再犯同樣的罪時，我們會極度灰心。但這節經文是一劑預防針，提醒我們不要把人當神拜。接納人性本身的軟弱，不是為了放縱，而是為了讓我們緊緊抓住神白白的恩典。",
+                action: "為一位你覺得不順眼或曾經得罪你的肢體禱告，承認你們在神面前同樣都是需要恩典的罪人。",
+                question: "你是否對某人的軟弱感到極度失望？這是否因為你把他當成了完全的神？",
+                prayer: "主，我承認我無法靠自己活出完全。謝謝祢的愛沒有因為我的不完美而減少。我願將一切軟弱交在祢施恩座前。阿們。"
+            },
+            26: {
+                title: "掌握在神手中的明天",
+                verse: "無人有權力掌管生命，將生命留住；也無人有權力掌管死期；這場爭戰，無人能免...",
+                ref: "傳道書 8:8 (和合本)",
+                theology: "人類科技再發達，面對生與死依然束手無策。傳道者不斷重申人類的極限，是為了將我們推向無限的神。明白我們沒有權力掌控生命，我們就會學會將明天安穩地交託在神的手中。",
+                heart: "對未來的焦慮（害怕生病、擔心經濟）常讓我們無法過好今天。但事實是，你再怎麼擔憂，也無法增加一天的壽命，因為你只是受造物。放手吧！把那原本就不屬於你的控制權還給神，你才能在今天深深地呼吸。",
+                action: "今天如果感到焦慮，做三次深呼吸。每一次吐氣時，在心裡說：「主啊，明天在祢手中，我選擇交託。」",
+                question: "你最害怕失去控制的是什麼事？你願意把它交還給神嗎？",
+                prayer: "生命的主宰，我不擁有明天，但我知道祢掌管明天。求祢除去我對未知的恐懼，幫助我今天就專心愛祢、跟隨祢。阿們。"
+            },
+            27: {
+                title: "確信蒙悅納的喜樂",
+                verse: "我就讚美快樂，原來人在日光之下，莫強如吃喝快樂；因為他在日光之下，神賜他一生的年日，要從勞碌中，時常享受乎此。",
+                ref: "傳道書 8:15 (和合本)",
+                theology: "在看透了世間的荒謬與不可控後，傳道者再次呼籲人要在神賜的年日中「吃喝快樂」。這不是享樂主義，而是蒙恩者的自由！當我們確信自己在基督裡已蒙神悅納，我們就可以在日常的勞碌中，帶著感恩的心去享受這份恩典。",
+                heart: "許多信徒活在深深的罪咎感中，覺得自己不配快樂，好像必須愁眉苦臉才算「背十字架」。但神是一位樂意賜恩的父親！在神已經悅納你的前提下，好好生活、真誠喜笑，就是對創造主最美的讚美。",
+                action: "為自己安排一件單純會讓你快樂的小事（喝杯好咖啡、散步），並在做的時候為此快樂感謝神。",
+                question: "你覺得神希望你愁眉苦臉地服事祂，還是歡歡喜喜地享受祂的恩典？",
+                prayer: "天父，謝謝祢在基督裡已經完全接納了我。求祢釋放我脫離律法的定罪，讓我在日常生活中，活出屬天兒女的喜樂。阿們。"
+            },
+            28: {
+                title: "與主同行的日常",
+                verse: "你只管去歡歡喜喜吃你的飯，心中快樂喝你的酒，因為神已經悅納你的作為。",
+                ref: "傳道書 9:7 (和合本)",
+                theology: "講章指出，打破法碼論之後，我們明白不需要靠苦勞來賺取神的愛。「神已經悅納你的作為」是恩典的宣告。既然生命是神賜的禮物 (Gift)，我們就不必戰戰兢兢地想要證明自己，只管安心、歡喜地度日。",
+                heart: "這節經文是對充滿壓力的現代人最好的釋放。你不需要成為世界首富或超級聖徒才能討神喜悅。放下想要掌控人生大局的重擔，容許自己在神的愛中放鬆，好好吃一頓飯，這就是信仰最深刻的落地。",
+                action: "今天在吃飯時，對自己宣告經文：「神已經悅納了我，我可以歡喜快樂地吃這頓飯。」",
+                question: "你是否仍常有一種「我做得還不夠好，神可能不滿意我」的恐懼感？",
+                prayer: "親愛的主，謝謝祢白白的恩典。求祢幫助我卸下屬靈的完美主義，讓我在日常的吃喝與工作中，安然享受祢的同在。阿們。"
+            },
+            29: {
+                title: "打破法碼論 (交易心態)",
+                verse: "我又轉念：見日光之下，快跑的未必能贏；力戰的未必得勝；智慧的未必得糧食... 所臨到眾人的是在乎當時的機會。",
+                ref: "傳道書 9:11 (和合本)",
+                theology: "人類天生喜歡「法碼論」（功利主義/因果論）：認為只要努力就該成功，做好人就該得福。但講章特別點出，現實人生並非如此。這不是神不公義，而是神在拆毀我們試圖靠自己行為去掌控人生的驕傲。人生不是一場交易，我們只能仰賴神的恩典。",
+                heart: "在職場或生活中，當我們付出了巨大努力卻沒有得到應有回報時，我們常會感到憤怒。我們潛意識裡在跟神談條件：「我這麼敬虔，祢為什麼不祝福我？」放下這種交易的算計，接受生命的不可控，才是真正得自由的開始。",
+                action: "回想一件近期「付出與收穫不成正比」的事情。練習對自己說：「我的價值不在於結果的成敗，而在於我是神所愛的。」",
+                question: "你是否在用「好行為」去交換上帝的祝福或他人的認可？",
+                prayer: "主啊，赦免我常常用商業的交易心態來面對人生和面對祢。幫助我放下掌控的法碼，單單仰望並安息在祢絕對的主權裡。阿們。"
+            },
+            30: {
+                title: "未知中的行動：盡力而為",
+                verse: "看風的，必不撒種；望雲的，必不收割。風從何道來，骨頭在懷孕婦人的胎中如何長成，你尚且不得知道；這樣，行萬事之神的作為，你更不得知道。",
+                ref: "傳道書 11:4-5 (和合本)",
+                theology: "我們雖然無法掌握結果，也看不透神的作為，但這不代表我們要消極怠工。神呼召我們在活著的時候「撒種」。這是一種活在當下的智慧：把過程做到最好是我們受造物的責任，把結果交給創造主是我們的信仰。",
+                heart: "在生活與服事中，我們常因為害怕失敗或看不見未來的保證，而遲遲不敢行動（看風望雲）。傳道書提醒我們，活著本身就是機會。不要把精力浪費在擔憂結果上，專注於你現在能做的那一步。盡力了，就交託。",
+                action: "選定一件你因為擔憂結果而一直拖延的事情，今天就起步，專注於完成它的一小部分。",
+                question: "面對當前的責任，你是盡心竭力，還是因為過度考量未知而停滯不前？",
+                prayer: "主，謝謝祢賜我今日的生命與氣息。求祢賜我力量，讓我凡事盡力而為，並有信心將一切結果交在祢大能的手中。阿們。"
+            },
+            31: {
+                title: "生命的源頭：回到創造主",
+                verse: "你趁著年幼、衰敗的日子尚未來到，就是你所說，我毫無喜悅的那些年日未曾臨近之先，當記念造你的主。...總意就是：敬畏神，謹守他的誡命。",
+                ref: "傳道書 12:1,13 (和合本)",
+                theology: "講章的總結：整卷傳道書在探索了日光之下各樣的虛空與法碼論的破滅後，落在這個穩固的磐石上。敬畏神，就是承認「神是創造主，我是受造物」。當我們回到這個最基本的前提，我們就不再把重擔扛在自己肩上，生命才能真正得著安息。",
+                heart: "人生的答案不在於解開所有的謎題，也不在於賺取足夠的財富。人生的答案在於回歸與創造主的關係。當你敬畏神，承認自己的有限，萬事就回到了正軌；日光之下的勞碌，也因著日光之上的主，有了永恆的意義。",
+                action: "寫下你這31天來最大的心得。對自己宣告：「我是受造物，敬畏神，是我人生一切行動的出發點。」",
+                question: "回顧這一個月，你對「神是創造主、我是受造物」以及「生命是禮物」有了什麼新的體會？",
+                prayer: "我親愛的創造主，感謝祢這一個月透過傳道書對我說話。願敬畏祢的心成為我一生的指標，讓我在不可預知的日常中，安穩作祢得安息的孩子。阿們。"
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            let currentDayIndex = 1;
+
+            // Check if current date is October 2026
+            if (today.getFullYear() === 2026 && today.getMonth() === 9) { // getMonth is 0-indexed (9 = Oct)
+                currentDayIndex = today.getDate();
+            }
+
+            // Ensure index is within our bounds
+            if (currentDayIndex < 1) currentDayIndex = 1;
+            if (currentDayIndex > 31) currentDayIndex = 31;
+
+            renderList();
+            displayDay(currentDayIndex);
+        });
+
+        function renderList() {
+            const listContainer = document.getElementById('day-list');
+            listContainer.innerHTML = '';
+
+            for (let i = 1; i <= 31; i++) {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-4 py-3 rounded-xl mb-1 text-sm transition-all duration-200 border-l-4 ${i === 1 ? 'border-amber-500 bg-stone-800 text-white' : 'border-transparent text-stone-400 hover:bg-stone-800 hover:text-stone-200'}`;
+                btn.id = `btn-day-${i}`;
+                btn.innerHTML = `<span class="opacity-60 mr-2">10/${i}</span> ${devotionalData[i].title}`;
+                btn.onclick = () => displayDay(i);
+                listContainer.appendChild(btn);
+            }
+        }
+
+        let currentUtterance = null;
+
+        function displayDay(day) {
+            // Update active state in sidebar
+            for (let i = 1; i <= 31; i++) {
+                const btn = document.getElementById(`btn-day-${i}`);
+                if(btn) {
+                    if (i === day) {
+                        btn.className = `w-full text-left px-4 py-3 rounded-xl mb-1 text-sm transition-all duration-200 border-l-4 border-amber-500 bg-stone-800 text-white`;
+                    } else {
+                        btn.className = `w-full text-left px-4 py-3 rounded-xl mb-1 text-sm transition-all duration-200 border-l-4 border-transparent text-stone-400 hover:bg-stone-800 hover:text-stone-200`;
+                    }
+                }
+            }
+
+            const data = devotionalData[day];
+            
+            // Animation reset
+            const contentArea = document.getElementById('content-area');
+            contentArea.classList.remove('fade-in');
+            void contentArea.offsetWidth; // trigger reflow
+            contentArea.classList.add('fade-in');
+
+            // Populate text
+            document.getElementById('display-date').textContent = `2026年 10月${day}日`;
+            document.getElementById('display-title').textContent = data.title;
+            document.getElementById('display-verse').textContent = data.verse;
+            document.getElementById('display-ref').textContent = data.ref;
+            document.getElementById('display-theology').textContent = data.theology;
+            document.getElementById('display-heart').textContent = data.heart;
+            document.getElementById('display-action').textContent = data.action;
+            document.getElementById('display-question').textContent = data.question;
+            document.getElementById('display-prayer').textContent = data.prayer;
+
+            // Stop any ongoing speech when switching days
+            if(window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            document.getElementById('listen-text').textContent = "聆聽內容";
+
+            // Setup Listen Button
+            document.getElementById('listen-btn').onclick = () => {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    document.getElementById('listen-text').textContent = "聆聽內容";
+                    return;
+                }
+
+                document.getElementById('listen-text').textContent = "停止聆聽";
+
+                // Prepare text, stripping verse refs and formatting
+                const fullText = `
+                    ${data.title}。
+                    ${data.verse}。
+                    聖言反思。${data.theology}
+                    心靈觀照。${data.heart}
+                    生活實踐。${data.action}
+                    今日反思問題。${data.question}
+                    結束禱告。${data.prayer}
+                `;
+
+                // Clean text for speech (Remove brackets and specific symbols as requested)
+                let cleanText = fullText
+                    .replace(/【.*?】/g, '')
+                    .replace(/\[.*?\]/g, '')
+                    .replace(/\(.*\)/g, '')
+                    // We don't strip normal punctuation because the speech engine needs them for natural pauses.
+                    // We just ensure no weird symbols are read out.
+                    .replace(/[:：]/g, '。'); 
+
+                currentUtterance = new SpeechSynthesisUtterance(cleanText);
+                currentUtterance.lang = 'zh-TW';
+                currentUtterance.rate = 0.95; // Slightly slower for devotional tone
+                currentUtterance.pitch = 1;
+
+                currentUtterance.onend = () => {
+                    document.getElementById('listen-text').textContent = "聆聽內容";
+                };
+
+                window.speechSynthesis.speak(currentUtterance);
+            };
+        }
+    </script>
+</body>
+</html>
